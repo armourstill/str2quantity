@@ -29,13 +29,13 @@ func TestSystem_Resolve(t *testing.T) {
 		wantUnitSymbol string
 		found          bool
 	}{
-		{"m", 1.0, "m", true},           // Exact match
-		{"km", 1000.0, "m", true},       // Prefix k + m
-		{"mm", 0.001, "m", true},        // Prefix m + m
-		{"kg", 1000.0, "g", true},       // Prefix k + g
-		{"mg", 0, "", false},            // Prefix m + g (NOT ALLOWED by binding)
-		{"x", 0, "", false},             // Unknown
-		{"kx", 0, "", false},            // Prefix k + Unknown
+		{"m", 1.0, "m", true},     // Exact match
+		{"km", 1000.0, "m", true}, // Prefix k + m
+		{"mm", 0.001, "m", true},  // Prefix m + m
+		{"kg", 1000.0, "g", true}, // Prefix k + g
+		{"mg", 0, "", false},      // Prefix m + g (NOT ALLOWED by binding)
+		{"x", 0, "", false},       // Unknown
+		{"kx", 0, "", false},      // Prefix k + Unknown
 	}
 
 	for _, tt := range tests {

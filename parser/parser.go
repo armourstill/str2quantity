@@ -47,8 +47,8 @@ func safeSkipSeps(s string, separators string) string {
 // It uses input unit.System for configuration.
 //
 // Constraints:
-// 1. System base unit (Scale=1.0) must align with '1' of type N.
-// 2. Fractional values in integer type N will return error.
+//  1. System base unit (Scale=1.0) must align with '1' of type N.
+//  2. Fractional values in integer type N will return error.
 func Parse[N Number](s string, sys *unit.System) (N, unit.Dimension, error) {
 	// Epsilon handles floating point noise (e.g. for pico/nano prefixes).
 	const epsilon = 1e-12
