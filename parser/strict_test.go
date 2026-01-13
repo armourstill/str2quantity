@@ -37,10 +37,10 @@ func TestParse_Generics_Integers(t *testing.T) {
 		{"MultiPart int", "1k 50u", 1050, false},
 
 		// Precision Loss cases
-		{"Decimal fraction of base unit", "0.5u", 0, true},       // 0.5 -> int(0) -> Loss
-		{"Tiny decimal", "0.00001u", 0, true},                    // Loss
-		{"Decimal resulting in non-int", "1.0005k", 0, true},     // 1000.5 -> Loss
-		{"Complex loss", "1u 0.5u", 0, true},                     // Second part fails
+		{"Decimal fraction of base unit", "0.5u", 0, true},   // 0.5 -> int(0) -> Loss
+		{"Tiny decimal", "0.00001u", 0, true},                // Loss
+		{"Decimal resulting in non-int", "1.0005k", 0, true}, // 1000.5 -> Loss
+		{"Complex loss", "1u 0.5u", 0, true},                 // Second part fails
 	}
 
 	for _, tt := range tests {
@@ -100,8 +100,8 @@ func TestParse_TimeDuration_Strict(t *testing.T) {
 	}{
 		{"1ns", "1ns", 1, false},
 		{"1us", "1us", 1000, false},
-		{"0.5us", "0.5us", 500, false},          // 0.5 * 1000 = 500 (OK)
-		{"0.5ns", "0.5ns", 0, true},             // Error: Cannot represent 0.5ns
+		{"0.5us", "0.5us", 500, false},             // 0.5 * 1000 = 500 (OK)
+		{"0.5ns", "0.5ns", 0, true},                // Error: Cannot represent 0.5ns
 		{"Truncated us", "1.000000001us", 0, true}, // 1000.000001 ns -> Error
 	}
 

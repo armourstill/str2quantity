@@ -38,7 +38,6 @@ func init() {
 
 	// --- 2. Register IEC Standard Prefixes (Binary 1024) ---
 	// Explicitly register case variants so users can write "1kib" even in case-sensitive mode.
-	const binaryKilo = 1024.0
 	iecPrefixes := []struct {
 		val  float64
 		syms []string
@@ -106,8 +105,8 @@ func ParseBits(s string) (int64, error) {
 
 // ParseBytes parses a storage string and returns the quantity in Bytes.
 // It uses float64 internally to allow:
-// 1. Handling values larger than 1 Exabyte (which exceeds int64 range when counted in bits).
-// 2. Supporting fractional bytes (e.g. "4 bits" = 0.5 Bytes).
+//  1. Handling values larger than 1 Exabyte (which exceeds int64 range when counted in bits).
+//  2. Supporting fractional bytes (e.g. "4 bits" = 0.5 Bytes).
 //
 // Note: While this allows inputs that result in fractional bits (like "0.5 bit"),
 // it prioritizes range and flexibility over strict physical bit validity.

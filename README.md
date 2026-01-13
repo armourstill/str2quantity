@@ -77,7 +77,9 @@ func main() {
 
 ### 3. Building a Custom Unit System
 
-Use generic capabilities to build your own system. For example: build an SI-compliant (1KB=1000B) system using `std/storage`'s Clone feature.
+Use generic capabilities to build your own system.
+
+For example: build an SI-compliant (1KB=1000B) system using `std/storage`'s Clone feature.
 
 ```go
 package main

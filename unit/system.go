@@ -22,9 +22,9 @@ type SystemConfig struct {
 
 // System is a registry for units and prefixes.
 type System struct {
-	units        map[string]Unit
-	prefixes     []Prefix
-	Config       SystemConfig
+	units    map[string]Unit
+	prefixes []Prefix
+	Config   SystemConfig
 
 	// unitPrefixes maps unit symbol -> allowed prefix symbols.
 	unitPrefixes map[string]map[string]bool
