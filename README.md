@@ -154,4 +154,4 @@ During parsing, the library internally uses a tolerance of `1e-12` to automatica
 ## Roadmap
 
 1. Standardized implementation of other international base units.
-2. Support for dimensional arithmetic, e.g., `F=M·m`.
+2. Support for dimensional arithmetic, e.g., `N=kg·m/s²`.
