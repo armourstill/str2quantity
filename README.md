@@ -11,71 +11,29 @@ It supports custom unit systems and introduces **Generic Parsing** and **Precisi
     *   When the target is an integer type (e.g., `int64`), the library checks for precision loss due to unit conversion (e.g., inputting `0.5ns` or `0.5bit` will return an error).
     *   Built-in tolerance of `1e-12` to balance floating-point calculation noise and numerical checks.
 *   **Physical Base Design**:
-    *   **Time**: Uses `ns` as the integer base (1.0), aligning with the Go standard library `time.Duration`.
-    *   **Storage**: Uses `bit` as the integer base (1.0), supporting bit-level calculations (packet counting) or common byte-level calculations.
+    *   **Time**: Uses `ns` as the integer base (1.0).
+    *   **Storage**: Uses `bit` as the integer base (1.0).
+    *   **Length**: Uses `m` (meter) as the float base (1.0).
 *   **Flexible Unit System (`unit.System`)**:
     *   **Multi-part Accumulation**: Supports formats like `1h30m`.
     *   **Prefix Binding**: Supports SI/IEC prefixes (kB, KiB) and context-sensitive parsing (e.g., `k=1024` in storage vs 1000).
     *   **Priority Matching**: Resolves unit conflicts.
 *   **Safety**: Built-in Dimensional Checking to prevent illegal operations like `1h + 1kg`.
 
-## Quick Start
+## Standard Packages
 
-### 1. Using Standard Time Library (`std/time`)
+The library comes with pre-defined unit systems for common use cases:
 
-Provides unit parsing functionality for time.
+### 1. [Time (std/time)](std/time/README.md)
+*   **Basic Usage**: `stdtime.ParseDuration("1h30m")`
 
-```go
-package main
+### 2. [Storage (std/storage)](std/storage/README.md)
+*   **Basic Usage**: `stdstorage.ParseBytes("1.5GB")`
 
-import (
-    "fmt"
-    "time"
-    stdtime "github.com/armourstill/str2quantity/std/time"
-)
+### 3. [Length (std/length)](std/length/README.md)
+*   **Basic Usage**: `length.ParseLength("1km 500m")`
 
-func main() {
-    // Compatible with standard library format
-    d, _ := stdtime.ParseDuration("1h30m")
-    fmt.Println(d) // 1h30m0s
-
-    // Precision check: minimum granularity is 1ns
-    _, err := stdtime.ParseDuration("0.5ns")
-    if err != nil {
-        fmt.Println("Error:", err) // Error: precision loss ...
-    }
-}
-```
-
-### 2. Using Data Storage Library (`std/storage`)
-
-Provides `ParseBytes` (general) and `ParseBits` (high precision) for different scenarios.
-
-```go
-package main
-
-import (
-    "fmt"
-    stdstorage "github.com/armourstill/str2quantity/std/storage"
-)
-
-func main() {
-    // Scenario A: General capacity config (supports large numbers and decimals)
-    // Even "1bit" will result in 0.125 Bytes
-    bytes, _ := stdstorage.ParseBytes("1.5GB")
-    fmt.Printf("%.2f Bytes\n", bytes)
-
-    // Scenario B: Network packet counting/Hardware counting (Integer bits)
-    // Rejects "0.5 bit", supports up to ~1.15 EiB
-    bits, err := stdstorage.ParseBits("100Mb")
-    if err != nil {
-        panic(err)
-    }
-    fmt.Printf("%d bits\n", bits)
-}
-```
-
-### 3. Building a Custom Unit System
+## Advanced Usage: Custom Unit System
 
 Use generic capabilities to build your own system.
 
@@ -125,14 +83,6 @@ func main() {
     fmt.Printf("Standard System 1KB = %.0f bits (Expect 8192)\n", valStd)
 }
 ```
-
-## Directory Structure
-
-- **`parser/`**: Core generic parsing engine (`Parse[N]`).
-- **`unit/`**: Unit definition and system configuration.
-- **`std/`**:
-    - `std/time`: Time parsing (ns base).
-    - `std/storage`: Storage parsing (bit base).
 
 ## Installation
 
